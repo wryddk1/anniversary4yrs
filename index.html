@@ -15,7 +15,6 @@
             --accent-gold: #c0a080;
         }
 
-        /* บังคับให้ทุก Element ใช้ฟอนต์ Prompt */
         * {
             font-family: 'Prompt', sans-serif !important;
             box-sizing: border-box;
@@ -30,74 +29,53 @@
             align-items: center; 
             overflow-x: hidden;
             color: var(--text-color);
+            padding: 20px; /* เพิ่ม padding รอบตัวเครื่องมือถือ */
         }
 
         /* Animations */
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
         @keyframes heartBeat { 0%, 100% { transform: rotate(-45deg) scale(1); } 50% { transform: rotate(-45deg) scale(1.05); } }
         @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
-
         .shake-error { animation: shake 0.3s ease-in-out; }
 
         /* Splash Screen */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-gradient);
-            display: flex; justify-content: center; align-items: center; z-index: 1000; transition: 0.8s ease-in-out;
+            display: flex; justify-content: center; align-items: center; z-index: 1000; transition: 0.8s;
         }
         .heart-main {
-            width: 42vmin; height: 42vmin; background: var(--primary-color);
+            width: 60vmin; height: 60vmin; background: var(--primary-color);
             position: relative; transform: rotate(-45deg); animation: heartBeat 2s infinite ease-in-out;
-            display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 40px rgba(142,58,70,0.2);
+            display: flex; justify-content: center; align-items: center;
         }
         .heart-main::before, .heart-main::after {
-            content: ""; width: 42vmin; height: 42vmin; background: var(--primary-color); border-radius: 50%; position: absolute;
+            content: ""; width: 60vmin; height: 60vmin; background: var(--primary-color); border-radius: 50%; position: absolute;
         }
-        .heart-main::before { top: -21vmin; left: 0; }
-        .heart-main::after { left: 21vmin; top: 0; }
+        .heart-main::before { top: -30vmin; left: 0; }
+        .heart-main::after { left: 30vmin; top: 0; }
         
         .heart-content { 
-            transform: rotate(45deg); 
-            z-index: 10; text-align: center; width: 140%; 
-            position: absolute; 
+            transform: rotate(45deg); z-index: 10; text-align: center; width: 100%; position: absolute; padding: 20px;
         }
         
-        .heart-content h2 { 
-            color: #ffffff; 
-            font-size: clamp(1.5rem, 5vmin, 2.5rem); 
-            margin: 0 0 10px 0; 
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-        .heart-content p { color: rgba(255,255,255,0.9); font-size: clamp(0.9rem, 3vmin, 1.1rem); margin-bottom: 20px; font-weight: 300; }
-
+        .heart-content h2 { color: #ffffff; font-size: clamp(1.2rem, 6vmin, 2rem); margin: 0 0 10px 0; }
         .start-btn { 
-            background: white; color: var(--primary-color); border: none; 
-            padding: 12px 35px; border-radius: 50px; 
-            font-weight: 600; cursor: pointer; 
-            font-size: clamp(0.9rem, 2.5vmin, 1.1rem); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
-            transition: 0.3s;
+            background: white; color: var(--primary-color); border: none; padding: 10px 25px; border-radius: 50px; 
+            font-weight: 600; cursor: pointer; font-size: 0.9rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        .start-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
 
         /* Container & Screens */
         .container, .content-page {
-            width: 90%; max-width: 850px; background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(10px); border-radius: 40px;
+            width: 100%; max-width: 450px; background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); border-radius: 30px;
             display: none; flex-direction: column; align-items: center;
-            box-shadow: 0 25px 60px rgba(74,55,53,0.12);
-            padding: 40px; border: 1px solid rgba(255,255,255,0.5);
-        }
-
-        @media (min-width: 769px) {
-            .container { flex-direction: row; justify-content: space-around; gap: 50px; }
-            .photo-side, .login-side { width: 45%; }
+            box-shadow: 0 15px 40px rgba(74,55,53,0.1);
+            padding: 30px 20px; border: 1px solid rgba(255,255,255,0.5);
         }
 
         .heart-photo-container {
-            width: 280px; height: 250px; margin: 0 auto;
-            position: relative; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
+            width: 200px; height: 180px; margin: 0 auto 20px auto;
+            position: relative; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
         }
         .heart-photo-container img {
             width: 100%; height: 100%; object-fit: cover; 
@@ -108,66 +86,47 @@
         }
 
         #passcode { 
-            padding: 15px; border-radius: 20px; border: 2px solid #f0e6e6; background: #fff; 
-            width: 100%; margin-bottom: 25px; font-size: 24px; text-align: center; letter-spacing: 12px; 
-            color: var(--primary-color); font-weight: 700; outline: none; transition: 0.3s;
+            padding: 10px; border-radius: 15px; border: 2px solid #f0e6e6; background: #fff; 
+            width: 100%; margin-bottom: 20px; font-size: 20px; text-align: center; letter-spacing: 10px; 
+            color: var(--primary-color); font-weight: 700; outline: none;
         }
         
-        .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
+        .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 250px; }
         .key { 
-            width: 100%; aspect-ratio: 1/1; max-width: 65px; border-radius: 50%; 
-            border: 1px solid #efe5e5; background: white; color: var(--text-color); 
-            cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto; transition: 0.2s;
+            width: 60px; height: 60px; border-radius: 50%; border: 1px solid #efe5e5; background: white; 
+            font-size: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto; cursor: pointer;
         }
-        .key:active { background: #fdf8f5; transform: scale(0.9); } 
-        .key.clear-btn { border: none; color: #aaa; font-size: 14px; }
-        .key.unlock { background: var(--primary-color); color: white; border: none; font-size: 16px; box-shadow: 0 5px 15px rgba(142,58,70,0.3); }
+        .key.unlock { background: var(--primary-color); color: white; border: none; font-size: 14px; }
 
-        /* Menu */
-        #menu-screen { display: none; flex-direction: column; align-items: center; width: 90%; max-width: 450px; }
-        .menu-title { font-size: 26px; color: var(--primary-color); margin-bottom: 25px; font-weight: 600; }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+        /* Menu Grid */
+        #menu-screen { display: none; width: 100%; max-width: 450px; flex-direction: column; align-items: center; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
         .menu-card {
-            background: white; padding: 25px 10px; border-radius: 30px; 
-            box-shadow: 0 10px 30px rgba(74,55,53,0.08);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            text-align: center; cursor: pointer; aspect-ratio: 1/1; transition: 0.3s; border: none;
+            background: white; padding: 20px 10px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; border: none;
         }
-        .menu-card:hover { transform: translateY(-5px); }
+        .menu-card img { width: 40px; margin-bottom: 10px; opacity: 0.7; }
+        .menu-card span { font-size: 13px; font-weight: 500; }
+        .menu-card.full-width { grid-column: span 2; background: var(--primary-color); color: white; flex-direction: row; justify-content: center; gap: 15px; }
+        .menu-card.full-width img { filter: brightness(0) invert(1); margin-bottom: 0; width: 25px; }
+
+        /* Letter & Content */
+        .letter { background: #fafafa; padding: 20px; border-radius: 20px; width: 100%; font-size: 14px; line-height: 1.7; overflow-wrap: break-word; }
+        .letter img { width: 100%; border-radius: 15px; margin: 15px 0; height: auto; object-fit: cover; }
         
-        .menu-card img { 
-            width: 35%; 
-            margin-bottom: 15px; 
-            filter: brightness(0) opacity(0.7); 
-        }
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; margin: 20px 0; }
+        .timer-number { font-size: 24px; font-weight: 700; color: var(--primary-color); }
+        .timer-label { font-size: 9px; color: #bbb; }
+
+        .next-btn { background: var(--primary-color); color: white; border: none; padding: 15px; border-radius: 15px; width: 100%; font-size: 15px; margin-top: 15px; cursor: pointer; }
+        .back-btn { background: #f5f5f5; color: #aaa; border: none; padding: 12px; border-radius: 15px; font-size: 12px; cursor: pointer; }
+        .nav-group { display: flex; gap: 10px; width: 100%; margin-top: 15px; }
+
+        .quiz-choice-btn { background: white; width: 100%; padding: 15px; border: 1.5px solid #f0f0f0; border-radius: 15px; margin-top: 10px; font-size: 14px; cursor: pointer; }
+
+        .music-player-container { width: 100%; margin-top: 20px; background: white; padding: 15px; border-radius: 20px; text-align: center; }
         
-        .menu-card span { font-size: 15px; font-weight: 500; color: var(--text-color); }
-        .menu-card.full-width { grid-column: span 2; aspect-ratio: auto; padding: 30px; background: var(--primary-color); color: white; }
-        .menu-card.full-width span { color: white; }
-        
-        .menu-card.full-width img { 
-            filter: brightness(0) invert(1); 
-            width: 12%; 
-        }
-
-        /* Letter & Pages */
-        .letter { text-align: left; background: #fafafa; padding: 30px; border-radius: 30px; border: 1px solid #f3efee; width: 100%; line-height: 1.9; font-size: 15px; }
-        .letter b { color: var(--primary-color); }
-        .letter img { width: 100%; border-radius: 20px; margin: 20px 0; }
-
-        .timer-grid { display: flex; justify-content: center; gap: 15px; width: 100%; margin: 20px 0; }
-        .timer-number { font-size: 32px; font-weight: 700; color: var(--primary-color); }
-        .timer-label { font-size: 10px; color: #bbb; text-transform: uppercase; }
-
-        .next-btn { background: var(--primary-color); color: white; border: none; padding: 16px; border-radius: 20px; width: 100%; cursor: pointer; font-size: 16px; font-weight: 500; margin-top: 20px; }
-        .back-btn { background: #f5f5f5; color: #aaa; border: none; padding: 12px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; }
-        .nav-group { display: flex; gap: 15px; width: 100%; margin-top: 20px; }
-
-        .quiz-choice-btn { background: white; width: 100%; padding: 18px; border: 1.5px solid #f0f0f0; border-radius: 20px; margin-top: 15px; cursor: pointer; transition: 0.3s; font-size: 15px; }
-        .quiz-choice-btn:hover:not([disabled]) { border-color: var(--secondary-color); }
-
-        .music-player-container { width: 100%; margin-top: 30px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 30px; text-align: center; border: 1px solid white; }
+        h2 { font-size: 1.2rem; margin-top: 0; text-align: center; }
     </style>
 </head>
 <body>
@@ -176,41 +135,36 @@
         <div class="heart-main">
             <div class="heart-content">
                 <h2>To my love</h2>
-                <p>A special 4-year journey</p>
                 <button class="start-btn" onclick="startApp()">Open Gift</button>
             </div>
         </div>
     </div>
 
     <div class="container" id="login-screen">
-        <div class="photo-side">
-            <div class="heart-photo-container">
-                <img src="https://i.postimg.cc/N03FP8QG/IMG-4997.jpg" alt="Our Photo">
-            </div>
+        <div class="heart-photo-container">
+            <img src="https://i.postimg.cc/N03FP8QG/IMG-4997.jpg" alt="Our Photo">
         </div>
-        <div class="login-side">
-            <h1 style="color:var(--primary-color); font-size: 24px; margin-bottom: 10px; font-weight: 600; text-align:center;">Security Check</h1>
-            <p style="font-size: 14px; color: #888; margin-bottom: 25px; text-align:center;">ใส่รหัสผิดอดได้ของขวัญคืนนี้นะคะ :P</p>
-            <input type="password" id="passcode" readonly placeholder="••••">
-            <div class="keypad">
-                <button class="key" onclick="press('1')">1</button><button class="key" onclick="press('2')">2</button><button class="key" onclick="press('3')">3</button>
-                <button class="key" onclick="press('4')">4</button><button class="key" onclick="press('5')">5</button><button class="key" onclick="press('6')">6</button>
-                <button class="key" onclick="press('7')">7</button><button class="key" onclick="press('8')">8</button><button class="key" onclick="press('9')">9</button>
-                <button class="key clear-btn" onclick="press('C')">Clear</button><button class="key" onclick="press('0')">0</button><button class="key unlock" onclick="checkPassword()">OK</button>
-            </div>
-            <p id="error-msg" style="color:var(--error-color); font-size:14px; margin-top:15px; text-align:center; min-height:20px; font-weight:500;"></p>
+        <h1 style="color:var(--primary-color); font-size: 20px; margin: 0 0 5px 0; text-align:center;">Security Check</h1>
+        <p style="font-size: 12px; color: #888; margin-bottom: 15px; text-align:center;">ใส่รหัสผิดอดได้ของขวัญนะคะ :P</p>
+        <input type="password" id="passcode" readonly placeholder="••••">
+        <div class="keypad">
+            <button class="key" onclick="press('1')">1</button><button class="key" onclick="press('2')">2</button><button class="key" onclick="press('3')">3</button>
+            <button class="key" onclick="press('4')">4</button><button class="key" onclick="press('5')">5</button><button class="key" onclick="press('6')">6</button>
+            <button class="key" onclick="press('7')">7</button><button class="key" onclick="press('8')">8</button><button class="key" onclick="press('9')">9</button>
+            <button class="key" style="border:none; font-size:12px; color:#aaa" onclick="press('C')">C</button><button class="key" onclick="press('0')">0</button><button class="key unlock" onclick="checkPassword()">OK</button>
         </div>
+        <p id="error-msg" style="color:var(--error-color); font-size:12px; margin-top:10px; text-align:center; min-height:15px;"></p>
     </div>
 
     <div id="compliment-screen" class="content-page">
-        <h2 style="color:var(--primary-color)">เก่งมากค่ะแฟน</h2>
-        <img src="https://cdn-icons-png.flaticon.com/512/210/210545.png" alt="Heart" style="width:100px; margin: 20px 0;">
-        <p style="color: #777; margin-bottom: 25px; font-size: 16px;">เอาหัวใจเค้าไปเก็บไว้นะ ❤</p>
+        <h2>เก่งมากค่ะแฟน</h2>
+        <img src="https://cdn-icons-png.flaticon.com/512/210/210545.png" alt="Heart" style="width:80px; margin: 15px 0;">
+        <p style="color: #777; margin-bottom: 20px; font-size: 14px; text-align: center;">เอาหัวใจเค้าไปเก็บไว้นะ ❤</p>
         <button class="next-btn" onclick="showMenu()">รับหัวใจเค้าไว้ ❤</button>
     </div>
 
     <div id="menu-screen">
-        <div class="menu-title">Main Menu</div>
+        <div style="font-size: 20px; color: var(--primary-color); margin-bottom: 20px; font-weight: 600;">Main Menu</div>
         <div class="menu-grid">
             <button class="menu-card" onclick="showTimer()">
                 <img src="https://i.postimg.cc/RZpHz6Vd/clock.png" alt="Timer">
@@ -234,17 +188,17 @@
             </button>
         </div>
         <div class="music-player-container">
-            <span style="color: var(--secondary-color); font-size: 13px; display: block; margin-bottom: 10px;">เพลงแรกที่เธอส่งให้ เค้ายังชอบมันอยู่เลย 🎵</span>
-            <audio controls loop id="bg-music" style="width: 100%; height: 30px;">
+            <span style="color: var(--secondary-color); font-size: 11px; display: block; margin-bottom: 8px;">เพลงแรกที่เธอส่งให้ เค้ายังชอบอยู่เลย 🎵</span>
+            <audio controls loop id="bg-music" style="width: 100%; height: 35px;">
                 <source src="https://files.catbox.moe/8vfkfq.mp3" type="audio/mpeg">
             </audio>
         </div>
     </div>
 
     <div id="timer-screen" class="content-page">
-        <h2 style="font-size: 20px; color: var(--secondary-color); letter-spacing: 2px;">OUR LOVE JOURNEY</h2>
+        <h2 style="font-size: 16px; color: var(--secondary-color); letter-spacing: 2px;">OUR LOVE JOURNEY</h2>
         <div class="timer-grid" id="timer-display"></div>
-        <p style="font-size: 13px; color: #aaa; margin-bottom: 25px;">Since 08 May 2022</p>
+        <p style="font-size: 11px; color: #aaa; margin-bottom: 20px;">Since 08 May 2022</p>
         <button class="next-btn" onclick="showMenu()">← กลับหน้าเมนู</button>
     </div>
 
@@ -252,22 +206,7 @@
         <h2>Anniversary Letter ❤</h2>
         <div class="letter">
             <p><b>ถึง เธอที่รัก,</b></p>
-            <p>เค้าไม่รู้ว่าเธอจะอ่านแล้วรู้สึกยังไงนะ แต่เค้าอยากเขียนไว้จากทุกอย่างที่เราเคยคุยกันมา ทั้งเรื่องเล็กๆ เรื่องแมว เรื่องเหนื่อย เรื่องอนาคต หรือวันที่เราทะเลาะกันแล้วก็กลับมาคุยกันเหมือนเดิม
-
-มันทำให้เค้ารู้ว่า “เธอ” ไม่ใช่แค่คนในชีวิตเค้า แต่เป็นคนที่เค้าค่อยๆ โตไปด้วยจริงๆ
-
-เค้าอาจไม่เก่งพอในหลายเรื่อง ไม่ได้ทำให้ทุกอย่างง่ายขึ้น แต่เค้าตั้งใจอยู่ข้างเธอในแบบที่เค้าทำได้มาตลอด
-
-บางวันเราก็เหนื่อย บางวันก็เงียบใส่กัน แต่สุดท้ายเราก็ยังกลับมาหากันอยู่ดี
-มันเลยทำให้เค้ารู้ว่าเค้าไม่อยากเสียเธอไปเลย
-
-ขอบคุณนะที่ยังอยู่ตรงนี้ ขอบคุณที่ยังเป็นเธอเหมือนเดิม
-และขอบคุณที่ทำให้เค้ารู้สึกว่า “การมีเธออยู่ข้างๆ” มันสำคัญจริงๆ
-
-ถ้าวันหนึ่งเธอสงสัยว่าเค้ารักเธอแค่ไหน…
-เค้าไม่รู้จะอธิบายยังไงดี แต่อยากให้รู้ว่า เค้าเลือกเธอทุกวันเลยนะ 🤍
-
-สุขสันต์วันเกิดนะ และสุขสันต์วันครบรอบด้วย</p>
+            <p>เค้าไม่รู้ว่าเธอจะอ่านแล้วรู้สึกยังไงนะ แต่เค้าอยากเขียนไว้จากทุกอย่างที่เราเคยคุยกันมา ทั้งเรื่องเล็กๆ เรื่องแมว เรื่องเหนื่อย เรื่องอนาคต หรือวันที่เราทะเลาะกันแล้วก็กลับมาคุยกันเหมือนเดิม...</p>
             <img src="https://i.postimg.cc/3J4bHxwy/instc-2568-08-19-001956-433-Original.jpg" alt="Our Photo">
             <p style="text-align: center; margin-bottom: 0;"><b>รักที่สุดเลยนะ! จุ๊บๆ 💖</b></p>
         </div>
@@ -279,7 +218,7 @@
         <div class="letter">
             <p><b>จุดเริ่มต้น</b></p>
             <img src="https://i.postimg.cc/PxN7XFZp/IMG_6120.jpg" alt="Year 1">
-            <p>ตอนนั้นเรายังเด็กกันมาก ยังเรียนไม่จบ ยังติดเพื่อน ติดเล่นกันอยู่เลย แต่เค้าจำได้ว่ามันสนุกมากเพราะมีเธออยู่ด้วย ตอนนั้นไม่ได้คิดอะไรเยอะ แค่รู้สึกว่าอยู่ด้วยแล้วสบายใจ</p>
+            <p>ตอนนั้นเรายังเด็กกันมาก ยังเรียนไม่จบ ยังติดเพื่อน ติดเล่นกันอยู่เลย แต่เค้าจำได้ว่ามันสนุกมากเพราะมีเธออยู่ด้วย</p>
         </div>
         <div class="nav-group"><button class="back-btn" onclick="showMenu()">Menu</button><button class="next-btn" style="margin-top:0" onclick="nextPage('page-2')">Next ➔</button></div>
     </div>
@@ -289,7 +228,7 @@
         <div class="letter">
             <p><b>เรียนรู้</b></p>
             <img src="https://i.postimg.cc/263tkXvq/IMG_6140.jpg" alt="Year 2">
-            <p>เริ่มโตขึ้นมานิดนึง มีงอน มีเลาะกันบ้าง แต่ก็ยังอยู่ด้วยกันอยู่ดี เราเริ่มมีชีวิตของตัวเองมากขึ้น เธอเริ่มทำงาน เค้าก็เริ่มจริงจังกับอนาคตมากขึ้น ถึงจะไม่ง่าย แต่ก็ยังเลือกกันเหมือนเดิม</p>
+            <p>เริ่มโตขึ้นมานิดนึง มีงอน มีทะเลาะกันบ้าง แต่ก็ยังอยู่ด้วยกันอยู่ดี เราเริ่มมีชีวิตของตัวเองมากขึ้น</p>
         </div>
         <div class="nav-group"><button class="back-btn" onclick="nextPage('page-1')">Back</button><button class="next-btn" style="margin-top:0" onclick="nextPage('page-3')">Next ➔</button></div>
     </div>
@@ -299,7 +238,7 @@
         <div class="letter">
             <p><b>2024 : รักเราชัดเจนขึ้น</b></p>
             <img src="https://i.postimg.cc/QtVz8n5H/instc_2026_03_08_122359C3CC8119FDFA.jpg" alt="Year 3">
-            <p>ปีนี้มันค่อนข้างวุ่นๆ นะ มีทั้งวันที่ดีแล้วก็วันที่เหนื่อย ไปเที่ยวกันบ่อย ซ้อนมอไซค์เธอจนกลายเป็นความคุ้นเคยไปแล้ว บางวันก็มีงอนกันบ้าง แต่สุดท้ายก็ยังกลับมาคุยกันอยู่ดี มันเลยทำให้เค้ารู้ว่า ถึงจะวุ่นแค่ไหน เค้าก็ยังไม่อยากให้เธอหายไปไหนเลย</p>
+            <p>ปีนี้มันวุ่นๆ นะ มีทั้งดีและเหนื่อย ไปเที่ยวกันบ่อย ซ้อนมอไซค์จนกลายเป็นความคุ้นเคยไปแล้ว</p>
         </div>
         <div class="nav-group"><button class="back-btn" onclick="nextPage('page-2')">Back</button><button class="next-btn" style="margin-top:0" onclick="nextPage('page-4')">Next ➔</button></div>
     </div>
@@ -309,41 +248,33 @@
         <div class="letter">
             <p><b>ก้าวสู่ปีที่ 4</b></p>
             <img src="https://i.postimg.cc/wvB8XGHK/S-23633953.jpg" alt="Year 4">
-            <p>ตอนนี้เราก็โตขึ้นแล้วจริงๆ เธอ 23แล้วนะ ผ่านมาหลายเรื่องมาก ทั้งเรื่องแมว เรื่องชีวิต เรื่องเงิน เรื่องอนาคต มันไม่ได้สวยตลอด แต่มันคือเราที่ผ่านมาด้วยกัน
-
-ไม่รู้อนาคตจะเป็นยังไง แต่ที่รู้คือที่ผ่านมาเค้ายังอยู่ข้างเธอเสมอ
-แล้วก็แอบคิดนะ…โชคดีเหมือนกันที่เป็นเธอ
-
-เค้าไม่ได้อยากได้อะไรไปมากกว่านี้เลย แค่อยากอยู่ข้างๆ เธอแบบนี้ไปเรื่อยๆ ก็พอแล้ว
-
-ขอบคุณนะ และดีใจมากจริงๆ ที่มีเธอ</p>
+            <p>ตอนนี้เราโตขึ้นแล้วจริงๆ เธอ 23 แล้วนะ ผ่านมาหลายเรื่องมาก ทั้งเรื่องแมว ชีวิต เงิน อนาคต...</p>
         </div>
         <div class="nav-group"><button class="back-btn" onclick="nextPage('page-3')">Back</button><button class="next-btn" style="margin-top:0" onclick="showMenu()">Finish</button></div>
     </div>
 
     <div id="quiz-screen" class="content-page">
-        <div style="width:100%; display:flex; justify-content:space-between; margin-bottom:15px;">
-            <span style="font-size:12px; color:#aaa; letter-spacing: 2px; font-weight: 600;">QUIZ</span>
-            <span id="q-progress" style="font-size:12px; color:var(--secondary-color); font-weight:bold;">1/8</span>
+        <div style="width:100%; display:flex; justify-content:space-between; margin-bottom:10px;">
+            <span style="font-size:10px; color:#aaa; letter-spacing: 2px;">QUIZ</span>
+            <span id="q-progress" style="font-size:10px; color:var(--secondary-color); font-weight:bold;">1/8</span>
         </div>
-        <h2 id="quiz-question" style="font-size: 18px; text-align: center; min-height: 50px;">...</h2>
+        <h2 id="quiz-question" style="font-size: 16px; min-height: 40px;">...</h2>
         <div id="quiz-options" style="width: 100%;"></div>
-        <p id="quiz-feedback" style="height: 20px; font-weight: 600; margin-top: 15px; text-align: center;"></p>
+        <p id="quiz-feedback" style="height: 15px; font-size:12px; font-weight: 600; margin-top: 10px; text-align: center;"></p>
         <button id="next-q-btn" class="next-btn" onclick="nextQuestion()" style="display:none;">Next ➔</button>
-        <button class="back-btn" onclick="showMenu()" style="width: 100%; margin-top: 15px;">Cancel</button>
+        <button class="back-btn" onclick="showMenu()" style="width: 100%; margin-top: 10px;">Cancel</button>
     </div>
 
     <div id="quiz-result" class="content-page">
         <h2>Quiz Result</h2>
-        <h1 id="final-score" style="color: var(--primary-color); font-size: 48px; margin: 15px 0; font-weight: 700;">0 / 8</h1>
-        <p id="score-msg" style="color: #888; margin-bottom: 25px;">เก่งมาก!</p>
+        <h1 id="final-score" style="color: var(--primary-color); font-size: 40px; margin: 10px 0;">0 / 8</h1>
         <button class="next-btn" onclick="showMenu()">Back to Menu</button>
     </div>
 
     <script>
     const START_DATE = new Date("2022-05-08T00:00:00"); 
     const MY_PASSWORD = "0805"; 
-    const errorPhrases = ["รหัสผิดค่ะกล้า","นึกดีๆ!", "กดมั่วป่าว", "บล็อคละนะงั้น"];
+    const errorPhrases = ["รหัสผิดค่ะกล้า","นึกดีๆ!", "กดมั่วป่าว", "บล็อคละนะ"];
     let errorIndex = 0;
 
     function startApp() {
@@ -402,46 +333,14 @@
     function nextPage(id) { hideAll(); document.getElementById(id).style.display = 'flex'; window.scrollTo(0,0); }
 
     const quizData = [
-        {
-            q: "1. เวลางอน เค้าชอบทำอะไรที่สุด?",
-            options: ["ตอบอืม", "หายไปแป๊บแต่แอบรอให้ง้อ", "บอกไม่เป็นไรทั้งที่เป็น"],
-            answer: 2
-        },
-        {
-            q: "2. ใครติดอีกคนมากกว่ากัน?",
-            options: ["เค้า", "เธอ", "ไม่ต้องเถียง ติดกันทั้งคู่"],
-            answer: 2
-        },
-        {
-            q: "3. เวลาเค้าบ่นว่าอ้วน จริงๆต้องการอะไร?",
-            options: ["อยากให้ปลอบ", "อยากกินต่อ", "ทั้งสองข้อ"],
-            answer: 2
-        },
-        {
-            q: "4. ถ้าทะเลาะกัน คนที่เงียบก่อนคือใคร?",
-            options: ["เค้า", "เธอ", "ไม่มีใครยอมทั้งคู่"],
-            answer: 2
-        },
-        {
-            q: "5. สิ่งที่เธอทำแล้วเค้าหมั่นไส้ที่สุด?",
-            options: ["กวนตีน", "ชอบแกล้ง", "น่ารักเกินเหตุ"],
-            answer: 0
-        },
-        {
-            q: "6. เวลาบอก 'เดี๋ยวนอนละ' จริงๆหมายถึงอะไร?",
-            options: ["เล่นโทรศัพท์ต่ออีกชั่วโมง", "ดู tiktok ต่อ", "ยังไม่ได้นอนหรอก"],
-            answer: 2
-        },
-        {
-            q: "7. ถ้าต้องเลือก 1 อย่าง เค้าจะเลือกอะไร?",
-            options: ["กินของอร่อย", "นอน", "อยู่กับเธอ"],
-            answer: 2
-        },
-        {
-            q: "8. ผ่านมา 4 ปี ทำไมยังไม่เบื่อกัน?",
-            options: ["ทนเก่ง", "รักแหละดูออก", "เพราะอีกคนขาดเราไม่ได้"],
-            answer: 2
-        }
+        { q: "1. เวลางอน เค้าชอบทำอะไรที่สุด?", options: ["ตอบอืม", "หายไปแป๊บแต่แอบรอให้ง้อ", "บอกไม่เป็นไร"], answer: 1 },
+        { q: "2. ใครติดอีกคนมากกว่ากัน?", options: ["เค้า", "เธอ", "ติดทั้งคู่"], answer: 2 },
+        { q: "3. เวลาเค้าบ่นว่าอ้วน ต้องการอะไร?", options: ["ปลอบ", "กินต่อ", "ทั้งคู่"], answer: 2 },
+        { q: "4. ทะเลาะกัน ใครเงียบก่อน?", options: ["เค้า", "เธอ", "ไม่มีใครยอม"], answer: 0 },
+        { q: "5. สิ่งที่เธอทำแล้วเค้าหมั่นไส้ที่สุด?", options: ["กวนตีน", "ชอบแกล้ง", "น่ารักเกินเหตุ"], answer: 0 },
+        { q: "6. 'เดี๋ยวนอนละ' จริงๆ หมายถึง?", options: ["ไถโทรศัพท์ต่อ", "ดู TikTok", "ยังไม่นอนหรอก"], answer: 2 },
+        { q: "7. ถ้าต้องเลือก 1 อย่าง เค้าเลือกอะไร?", options: ["ของอร่อย", "นอน", "อยู่กับเธอ"], answer: 2 },
+        { q: "8. 4 ปี ทำไมยังไม่เบื่อ?", options: ["ทนเก่ง", "รักแหละ", "ขาดเราไม่ได้"], answer: 1 }
     ];
 
     let currentQuestionIndex = 0, score = 0;
@@ -458,8 +357,8 @@
             let btn = document.createElement("button"); btn.innerText = opt; btn.className = "quiz-choice-btn";
             btn.onclick = () => {
                 Array.from(optDiv.children).forEach(b => b.disabled = true);
-                if(i === q.answer) { score++; btn.style.borderColor = "#28a745"; btn.style.color = "#28a745"; document.getElementById('quiz-feedback').innerText = "ถูกต้องที่สุด ❤"; }
-                else { btn.style.borderColor = "#dc3545"; btn.style.color = "#dc3545"; optDiv.children[q.answer].style.borderColor = "#28a745"; document.getElementById('quiz-feedback').innerText = "เกือบถูกแล้ววว"; }
+                if(i === q.answer) { score++; btn.style.borderColor = "#28a745"; document.getElementById('quiz-feedback').innerText = "ถูกต้องที่สุด ❤"; }
+                else { btn.style.borderColor = "#dc3545"; optDiv.children[q.answer].style.borderColor = "#28a745"; document.getElementById('quiz-feedback').innerText = "เกือบถูกแล้ววว"; }
                 document.getElementById('next-q-btn').style.display = "block";
             };
             optDiv.appendChild(btn);
@@ -467,27 +366,10 @@
     }
     function nextQuestion() { currentQuestionIndex++; if(currentQuestionIndex < 8) showQuestion(); else { hideAll(); document.getElementById('quiz-result').style.display='flex'; document.getElementById('final-score').innerText = score + " / 8"; } }
     </script>
+
+    <button onclick="alert('ไม่ว่าจะอีกกี่ปี เค้าก็ยังเลือกเธอเหมือนเดิม 🤍')" 
+    style="position:fixed; bottom:15px; right:15px; border:none; background:#8e3a46; color:white; padding:8px 12px; border-radius:15px; font-size:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+    miss me?
+    </button>
 </body>
-<button onclick="secretLove()" 
-style="
-position:fixed;
-bottom:15px;
-right:15px;
-border:none;
-background:#8e3a46;
-color:white;
-padding:10px 15px;
-border-radius:20px;
-font-size:12px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-">
-miss me?
-</button>
-
-<script>
-function secretLove(){
-    alert("ไม่ว่าจะอีกกี่ปี เค้าก็ยังเลือกเธอเหมือนเดิม 🤍");
-}
-</script>
-
 </html>
