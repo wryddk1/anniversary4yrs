@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Anniversary 4 Years My Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8e3a46;    
+            --secondary-color: #b5838d;  
+            --bg-gradient: linear-gradient(135deg, #f8f1ed, #ede0d4); 
+            --error-color: #a4161a;
+            --text-color: #4a3735;       
+            --accent-gold: #c0a080;
+        }
+
+        /* บังคับให้ทุก Element ใช้ฟอนต์ Prompt */
+        * {
+            font-family: 'Prompt', sans-serif !important;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            margin: 0; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        /* Animations */
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        @keyframes heartBeat { 0%, 100% { transform: rotate(-45deg) scale(1); } 50% { transform: rotate(-45deg) scale(1.05); } }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
+
+        .shake-error { animation: shake 0.3s ease-in-out; }
+
+        /* Splash Screen */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-gradient);
+            display: flex; justify-content: center; align-items: center; z-index: 1000; transition: 0.8s ease-in-out;
+        }
+        .heart-main {
+            width: 42vmin; height: 42vmin; background: var(--primary-color);
+            position: relative; transform: rotate(-45deg); animation: heartBeat 2s infinite ease-in-out;
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 40px rgba(142,58,70,0.2);
+        }
+        .heart-main::before, .heart-main::after {
+            content: ""; width: 42vmin; height: 42vmin; background: var(--primary-color); border-radius: 50%; position: absolute;
+        }
+        .heart-main::before { top: -21vmin; left: 0; }
+        .heart-main::after { left: 21vmin; top: 0; }
+        
+        .heart-content { 
+            transform: rotate(45deg); 
+            z-index: 10; text-align: center; width: 140%; 
+            position: absolute; 
+        }
+        
+        .heart-content h2 { 
+            color: #ffffff; 
+            font-size: clamp(1.5rem, 5vmin, 2.5rem); 
+            margin: 0 0 10px 0; 
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .heart-content p { color: rgba(255,255,255,0.9); font-size: clamp(0.9rem, 3vmin, 1.1rem); margin-bottom: 20px; font-weight: 300; }
+
+        .start-btn { 
+            background: white; color: var(--primary-color); border: none; 
+            padding: 12px 35px; border-radius: 50px; 
+            font-weight: 600; cursor: pointer; 
+            font-size: clamp(0.9rem, 2.5vmin, 1.1rem); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+            transition: 0.3s;
+        }
+        .start-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+
+        /* Container & Screens */
+        .container, .content-page {
+            width: 90%; max-width: 850px; background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); border-radius: 40px;
+            display: none; flex-direction: column; align-items: center;
+            box-shadow: 0 25px 60px rgba(74,55,53,0.12);
+            padding: 40px; border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        @media (min-width: 769px) {
+            .container { flex-direction: row; justify-content: space-around; gap: 50px; }
+            .photo-side, .login-side { width: 45%; }
+        }
+
+        .heart-photo-container {
+            width: 280px; height: 250px; margin: 0 auto;
+            position: relative; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
+        }
+        .heart-photo-container img {
+            width: 100%; height: 100%; object-fit: cover; 
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; -webkit-mask-size: contain;
+            mask-repeat: no-repeat; mask-position: center; mask-size: contain;
+        }
+
+        #passcode { 
+            padding: 15px; border-radius: 20px; border: 2px solid #f0e6e6; background: #fff; 
+            width: 100%; margin-bottom: 25px; font-size: 24px; text-align: center; letter-spacing: 12px; 
+            color: var(--primary-color); font-weight: 700; outline: none; transition: 0.3s;
+        }
+        
+        .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
+        .key { 
+            width: 100%; aspect-ratio: 1/1; max-width: 65px; border-radius: 50%; 
+            border: 1px solid #efe5e5; background: white; color: var(--text-color); 
+            cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto; transition: 0.2s;
+        }
+        .key:active { background: #fdf8f5; transform: scale(0.9); } 
+        .key.clear-btn { border: none; color: #aaa; font-size: 14px; }
+        .key.unlock { background: var(--primary-color); color: white; border: none; font-size: 16px; box-shadow: 0 5px 15px rgba(142,58,70,0.3); }
+
+        /* Menu */
+        #menu-screen { display: none; flex-direction: column; align-items: center; width: 90%; max-width: 450px; }
+        .menu-title { font-size: 26px; color: var(--primary-color); margin-bottom: 25px; font-weight: 600; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+        .menu-card {
+            background: white; padding: 25px 10px; border-radius: 30px; 
+            box-shadow: 0 10px 30px rgba(74,55,53,0.08);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            text-align: center; cursor: pointer; aspect-ratio: 1/1; transition: 0.3s; border: none;
+        }
+        .menu-card:hover { transform: translateY(-5px); }
+        
+        .menu-card img { 
+            width: 35%; 
+            margin-bottom: 15px; 
+            filter: brightness(0) opacity(0.7); 
+        }
+        
+        .menu-card span { font-size: 15px; font-weight: 500; color: var(--text-color); }
+        .menu-card.full-width { grid-column: span 2; aspect-ratio: auto; padding: 30px; background: var(--primary-color); color: white; }
+        .menu-card.full-width span { color: white; }
+        
+        .menu-card.full-width img { 
+            filter: brightness(0) invert(1); 
+            width: 12%; 
+        }
+
+        /* Letter & Pages */
+        .letter { text-align: left; background: #fafafa; padding: 30px; border-radius: 30px; border: 1px solid #f3efee; width: 100%; line-height: 1.9; font-size: 15px; }
+        .letter b { color: var(--primary-color); }
+        .letter img { width: 100%; border-radius: 20px; margin: 20px 0; }
+
+        .timer-grid { display: flex; justify-content: center; gap: 15px; width: 100%; margin: 20px 0; }
+        .timer-number { font-size: 32px; font-weight: 700; color: var(--primary-color); }
+        .timer-label { font-size: 10px; color: #bbb; text-transform: uppercase; }
+
+        .next-btn { background: var(--primary-color); color: white; border: none; padding: 16px; border-radius: 20px; width: 100%; cursor: pointer; font-size: 16px; font-weight: 500; margin-top: 20px; }
+        .back-btn { background: #f5f5f5; color: #aaa; border: none; padding: 12px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; }
+        .nav-group { display: flex; gap: 15px; width: 100%; margin-top: 20px; }
+
+        .quiz-choice-btn { background: white; width: 100%; padding: 18px; border: 1.5px solid #f0f0f0; border-radius: 20px; margin-top: 15px; cursor: pointer; transition: 0.3s; font-size: 15px; }
+        .quiz-choice-btn:hover:not([disabled]) { border-color: var(--secondary-color); }
+
+        .music-player-container { width: 100%; margin-top: 30px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 30px; text-align: center; border: 1px solid white; }
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="heart-main">
+            <div class="heart-content">
+                <h2>To my love</h2>
+                <p>A special 4-year journey</p>
+                <button class="start-btn" onclick="startApp()">Open Gift</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="login-screen">
+        <div class="photo-side">
+            <div class="heart-photo-container">
+                <img src="https://i.postimg.cc/N03FP8QG/IMG-4997.jpg" alt="Our Photo">
+            </div>
+        </div>
+        <div class="login-side">
+            <h1 style="color:var(--primary-color); font-size: 24px; margin-bottom: 10px; font-weight: 600; text-align:center;">Security Check</h1>
+            <p style="font-size: 14px; color: #888; margin-bottom: 25px; text-align:center;">ใส่รหัสผิดอดได้ของขวัญคืนนี้นะคะ :P</p>
+            <input type="password" id="passcode" readonly placeholder="••••">
+            <div class="keypad">
+                <button class="key" onclick="press('1')">1</button><button class="key" onclick="press('2')">2</button><button class="key" onclick="press('3')">3</button>
+                <button class="key" onclick="press('4')">4</button><button class="key" onclick="press('5')">5</button><button class="key" onclick="press('6')">6</button>
+                <button class="key" onclick="press('7')">7</button><button class="key" onclick="press('8')">8</button><button class="key" onclick="press('9')">9</button>
+                <button class="key clear-btn" onclick="press('C')">Clear</button><button class="key" onclick="press('0')">0</button><button class="key unlock" onclick="checkPassword()">OK</button>
+            </div>
+            <p id="error-msg" style="color:var(--error-color); font-size:14px; margin-top:15px; text-align:center; min-height:20px; font-weight:500;"></p>
+        </div>
+    </div>
+
+    <div id="compliment-screen" class="content-page">
+        <h2 style="color:var(--primary-color)">เก่งมากค่ะแฟน</h2>
+        <img src="https://cdn-icons-png.flaticon.com/512/210/210545.png" alt="Heart" style="width:100px; margin: 20px 0;">
+        <p style="color: #777; margin-bottom: 25px; font-size: 16px;">เอาหัวใจเค้าไปเก็บไว้นะ ❤</p>
+        <button class="next-btn" onclick="showMenu()">รับหัวใจเค้าไว้ ❤</button>
+    </div>
+
+    <div id="menu-screen">
+        <div class="menu-title">Main Menu</div>
+        <div class="menu-grid">
+            <button class="menu-card" onclick="showTimer()">
+                <img src="https://i.postimg.cc/RZpHz6Vd/clock.png" alt="Timer">
+                <span>เราคบกันมา<br>นานเท่าไหร่</span>
+            </button>
+            <button class="menu-card" onclick="nextPage('content-screen')">
+                <img src="https://i.postimg.cc/52KCMYNp/love_letter.png" alt="Letter">
+                <span>จดหมาย<br>ถึงคนน่ารัก</span>
+            </button>
+            <button class="menu-card" onclick="startQuiz()">
+                <img src="https://i.postimg.cc/mggHqNRK/lock.png" alt="Quiz">
+                <span>เรารู้ใจกัน<br>มากแค่ไหน</span>
+            </button>
+            <button class="menu-card" onclick="nextPage('page-1')">
+                <img src="https://i.postimg.cc/6ppvSLwg/book.png" alt="Memory">
+                <span>ความทรงจำ<br>4 ปีของเรา</span>
+            </button>
+            <button class="menu-card full-width" onclick="alert('เดี๋ยวเอาของขวัญให้คืนนี้นะ><')">
+                <img src="https://i.postimg.cc/QddTPksR/gift_box.png" alt="Gift">
+                <span>ของขวัญพิเศษสำหรับเธอ</span>
+            </button>
+        </div>
+        <div class="music-player-container">
+            <span style="color: var(--secondary-color); font-size: 13px; display: block; margin-bottom: 10px;">เพลงแรกที่เธอส่งให้ เค้ายังชอบมันอยู่เลย 🎵</span>
+            <audio controls loop id="bg-music" style="width: 100%; height: 30px;">
+                <source src="https://files.catbox.moe/8vfkfq.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+
+    <div id="timer-screen" class="content-page">
+        <h2 style="font-size: 20px; color: var(--secondary-color); letter-spacing: 2px;">OUR LOVE JOURNEY</h2>
+        <div class="timer-grid" id="timer-display"></div>
+        <p style="font-size: 13px; color: #aaa; margin-bottom: 25px;">Since 08 May 2022</p>
+        <button class="next-btn" onclick="showMenu()">← กลับหน้าเมนู</button>
+    </div>
+
+    <div id="content-screen" class="content-page">
+        <h2>Anniversary Letter ❤</h2>
+        <div class="letter">
+            <p><b>ถึง เธอที่รัก,</b></p>
+            <p>เค้าไม่รู้ว่าเธอจะอ่านแล้วรู้สึกยังไงนะ แต่เค้าอยากเขียนไว้จากทุกอย่างที่เราเคยคุยกันมา ทั้งเรื่องเล็กๆ เรื่องแมว เรื่องเหนื่อย เรื่องอนาคต หรือวันที่เราทะเลาะกันแล้วก็กลับมาคุยกันเหมือนเดิม
+
+มันทำให้เค้ารู้ว่า “เธอ” ไม่ใช่แค่คนในชีวิตเค้า แต่เป็นคนที่เค้าค่อยๆ โตไปด้วยจริงๆ
+
+เค้าอาจไม่เก่งพอในหลายเรื่อง ไม่ได้ทำให้ทุกอย่างง่ายขึ้น แต่เค้าตั้งใจอยู่ข้างเธอในแบบที่เค้าทำได้มาตลอด
+
+บางวันเราก็เหนื่อย บางวันก็เงียบใส่กัน แต่สุดท้ายเราก็ยังกลับมาหากันอยู่ดี
+มันเลยทำให้เค้ารู้ว่าเค้าไม่อยากเสียเธอไปเลย
+
+ขอบคุณนะที่ยังอยู่ตรงนี้ ขอบคุณที่ยังเป็นเธอเหมือนเดิม
+และขอบคุณที่ทำให้เค้ารู้สึกว่า “การมีเธออยู่ข้างๆ” มันสำคัญจริงๆ
+
+ถ้าวันหนึ่งเธอสงสัยว่าเค้ารักเธอแค่ไหน…
+เค้าไม่รู้จะอธิบายยังไงดี แต่อยากให้รู้ว่า เค้าเลือกเธอทุกวันเลยนะ 🤍
+
+สุขสันต์วันเกิดนะ และสุขสันต์วันครบรอบด้วย</p>
+            <img src="https://i.postimg.cc/3J4bHxwy/instc-2568-08-19-001956-433-Original.jpg" alt="Our Photo">
+            <p style="text-align: center; margin-bottom: 0;"><b>รักที่สุดเลยนะ! จุ๊บๆ 💖</b></p>
+        </div>
+        <button class="next-btn" onclick="showMenu()">← กลับหน้าเมนู</button>
+    </div>
+
+    <div id="page-1" class="content-page">
+        <h2>Chapter 1 : ปีแรก</h2>
+        <div class="letter">
+            <p><b>จุดเริ่มต้น</b></p>
+            <img src="https://i.postimg.cc/PxN7XFZp/IMG_6120.jpg" alt="Year 1">
+            <p>ตอนนั้นเรายังเด็กกันมาก ยังเรียนไม่จบ ยังติดเพื่อน ติดเล่นกันอยู่เลย แต่เค้าจำได้ว่ามันสนุกมากเพราะมีเธออยู่ด้วย ตอนนั้นไม่ได้คิดอะไรเยอะ แค่รู้สึกว่าอยู่ด้วยแล้วสบายใจ</p>
+        </div>
+        <div class="nav-group"><button class="back-btn" onclick="showMenu()">Menu</button><button class="next-btn" style="margin-top:0" onclick="nextPage('page-2')">Next ➔</button></div>
+    </div>
+
+    <div id="page-2" class="content-page">
+        <h2>Chapter 2 : เติบโต</h2>
+        <div class="letter">
+            <p><b>เรียนรู้</b></p>
+            <img src="https://i.postimg.cc/263tkXvq/IMG_6140.jpg" alt="Year 2">
+            <p>เริ่มโตขึ้นมานิดนึง มีงอน มีเลาะกันบ้าง แต่ก็ยังอยู่ด้วยกันอยู่ดี เราเริ่มมีชีวิตของตัวเองมากขึ้น เธอเริ่มทำงาน เค้าก็เริ่มจริงจังกับอนาคตมากขึ้น ถึงจะไม่ง่าย แต่ก็ยังเลือกกันเหมือนเดิม</p>
+        </div>
+        <div class="nav-group"><button class="back-btn" onclick="nextPage('page-1')">Back</button><button class="next-btn" style="margin-top:0" onclick="nextPage('page-3')">Next ➔</button></div>
+    </div>
+
+    <div id="page-3" class="content-page">
+        <h2>Chapter 3 : มั่นคง</h2>
+        <div class="letter">
+            <p><b>2024 : รักเราชัดเจนขึ้น</b></p>
+            <img src="https://i.postimg.cc/QtVz8n5H/instc_2026_03_08_122359C3CC8119FDFA.jpg" alt="Year 3">
+            <p>ปีนี้มันค่อนข้างวุ่นๆ นะ มีทั้งวันที่ดีแล้วก็วันที่เหนื่อย ไปเที่ยวกันบ่อย ซ้อนมอไซค์เธอจนกลายเป็นความคุ้นเคยไปแล้ว บางวันก็มีงอนกันบ้าง แต่สุดท้ายก็ยังกลับมาคุยกันอยู่ดี มันเลยทำให้เค้ารู้ว่า ถึงจะวุ่นแค่ไหน เค้าก็ยังไม่อยากให้เธอหายไปไหนเลย</p>
+        </div>
+        <div class="nav-group"><button class="back-btn" onclick="nextPage('page-2')">Back</button><button class="next-btn" style="margin-top:0" onclick="nextPage('page-4')">Next ➔</button></div>
+    </div>
+
+    <div id="page-4" class="content-page">
+        <h2>Chapter 4 : ปัจจุบัน</h2>
+        <div class="letter">
+            <p><b>ก้าวสู่ปีที่ 4</b></p>
+            <img src="https://i.postimg.cc/wvB8XGHK/S-23633953.jpg" alt="Year 4">
+            <p>ตอนนี้เราก็โตขึ้นแล้วจริงๆ เธอ 23แล้วนะ ผ่านมาหลายเรื่องมาก ทั้งเรื่องแมว เรื่องชีวิต เรื่องเงิน เรื่องอนาคต มันไม่ได้สวยตลอด แต่มันคือเราที่ผ่านมาด้วยกัน
+
+ไม่รู้อนาคตจะเป็นยังไง แต่ที่รู้คือที่ผ่านมาเค้ายังอยู่ข้างเธอเสมอ
+แล้วก็แอบคิดนะ…โชคดีเหมือนกันที่เป็นเธอ
+
+เค้าไม่ได้อยากได้อะไรไปมากกว่านี้เลย แค่อยากอยู่ข้างๆ เธอแบบนี้ไปเรื่อยๆ ก็พอแล้ว
+
+ขอบคุณนะ และดีใจมากจริงๆ ที่มีเธอ</p>
+        </div>
+        <div class="nav-group"><button class="back-btn" onclick="nextPage('page-3')">Back</button><button class="next-btn" style="margin-top:0" onclick="showMenu()">Finish</button></div>
+    </div>
+
+    <div id="quiz-screen" class="content-page">
+        <div style="width:100%; display:flex; justify-content:space-between; margin-bottom:15px;">
+            <span style="font-size:12px; color:#aaa; letter-spacing: 2px; font-weight: 600;">QUIZ</span>
+            <span id="q-progress" style="font-size:12px; color:var(--secondary-color); font-weight:bold;">1/8</span>
+        </div>
+        <h2 id="quiz-question" style="font-size: 18px; text-align: center; min-height: 50px;">...</h2>
+        <div id="quiz-options" style="width: 100%;"></div>
+        <p id="quiz-feedback" style="height: 20px; font-weight: 600; margin-top: 15px; text-align: center;"></p>
+        <button id="next-q-btn" class="next-btn" onclick="nextQuestion()" style="display:none;">Next ➔</button>
+        <button class="back-btn" onclick="showMenu()" style="width: 100%; margin-top: 15px;">Cancel</button>
+    </div>
+
+    <div id="quiz-result" class="content-page">
+        <h2>Quiz Result</h2>
+        <h1 id="final-score" style="color: var(--primary-color); font-size: 48px; margin: 15px 0; font-weight: 700;">0 / 8</h1>
+        <p id="score-msg" style="color: #888; margin-bottom: 25px;">เก่งมาก!</p>
+        <button class="next-btn" onclick="showMenu()">Back to Menu</button>
+    </div>
+
+    <script>
+    const START_DATE = new Date("2022-05-08T00:00:00"); 
+    const MY_PASSWORD = "0805"; 
+    const errorPhrases = ["รหัสผิดค่ะกล้า","นึกดีๆ!", "กดมั่วป่าว", "บล็อคละนะงั้น"];
+    let errorIndex = 0;
+
+    function startApp() {
+        document.getElementById('splash-screen').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('splash-screen').style.display = 'none';
+            document.getElementById('login-screen').style.display = 'flex'; 
+        }, 800);
+    }
+
+    function press(num) {
+        const input = document.getElementById('passcode');
+        document.getElementById('error-msg').innerText = '';
+        input.classList.remove('shake-error');
+        if (num === 'C') input.value = '';
+        else if (input.value.length < 4) input.value += num;
+    }
+
+    function checkPassword() {
+        const inputField = document.getElementById('passcode');
+        if(inputField.value === MY_PASSWORD) {
+            hideAll();
+            document.getElementById('compliment-screen').style.display = 'flex';
+        } else {
+            document.getElementById('error-msg').innerText = errorPhrases[errorIndex];
+            errorIndex = (errorIndex + 1) % errorPhrases.length;
+            inputField.classList.add('shake-error');
+            inputField.value = '';
+        }
+    }
+
+    function hideAll() {
+        const ids = ['login-screen', 'compliment-screen', 'menu-screen', 'timer-screen', 'content-screen', 'page-1', 'page-2', 'page-3', 'page-4', 'quiz-screen', 'quiz-result'];
+        ids.forEach(id => document.getElementById(id).style.display = 'none');
+    }
+
+    function showMenu() { hideAll(); document.getElementById('menu-screen').style.display = 'flex'; window.scrollTo(0,0); }
+    function showTimer() { hideAll(); document.getElementById('timer-screen').style.display = 'flex'; updateTimer(); }
+
+    function updateTimer() {
+        const now = new Date();
+        const diff = now - START_DATE;
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff / 3600000) % 24);
+        const mins = Math.floor((diff / 60000) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+        document.getElementById('timer-display').innerHTML = `
+            <div style="text-align:center"><div class="timer-number">${days}</div><div class="timer-label">Days</div></div>
+            <div style="text-align:center"><div class="timer-number">${hours}</div><div class="timer-label">Hrs</div></div>
+            <div style="text-align:center"><div class="timer-number">${mins}</div><div class="timer-label">Mins</div></div>
+            <div style="text-align:center"><div class="timer-number">${secs}</div><div class="timer-label">Secs</div></div>
+        `;
+        if(document.getElementById('timer-screen').style.display === 'flex') requestAnimationFrame(updateTimer);
+    }
+
+    function nextPage(id) { hideAll(); document.getElementById(id).style.display = 'flex'; window.scrollTo(0,0); }
+
+    const quizData = [
+        {
+            q: "1. เวลางอน เค้าชอบทำอะไรที่สุด?",
+            options: ["ตอบอืม", "หายไปแป๊บแต่แอบรอให้ง้อ", "บอกไม่เป็นไรทั้งที่เป็น"],
+            answer: 2
+        },
+        {
+            q: "2. ใครติดอีกคนมากกว่ากัน?",
+            options: ["เค้า", "เธอ", "ไม่ต้องเถียง ติดกันทั้งคู่"],
+            answer: 2
+        },
+        {
+            q: "3. เวลาเค้าบ่นว่าอ้วน จริงๆต้องการอะไร?",
+            options: ["อยากให้ปลอบ", "อยากกินต่อ", "ทั้งสองข้อ"],
+            answer: 2
+        },
+        {
+            q: "4. ถ้าทะเลาะกัน คนที่เงียบก่อนคือใคร?",
+            options: ["เค้า", "เธอ", "ไม่มีใครยอมทั้งคู่"],
+            answer: 2
+        },
+        {
+            q: "5. สิ่งที่เธอทำแล้วเค้าหมั่นไส้ที่สุด?",
+            options: ["กวนตีน", "ชอบแกล้ง", "น่ารักเกินเหตุ"],
+            answer: 0
+        },
+        {
+            q: "6. เวลาบอก 'เดี๋ยวนอนละ' จริงๆหมายถึงอะไร?",
+            options: ["เล่นโทรศัพท์ต่ออีกชั่วโมง", "ดู tiktok ต่อ", "ยังไม่ได้นอนหรอก"],
+            answer: 2
+        },
+        {
+            q: "7. ถ้าต้องเลือก 1 อย่าง เค้าจะเลือกอะไร?",
+            options: ["กินของอร่อย", "นอน", "อยู่กับเธอ"],
+            answer: 2
+        },
+        {
+            q: "8. ผ่านมา 4 ปี ทำไมยังไม่เบื่อกัน?",
+            options: ["ทนเก่ง", "รักแหละดูออก", "เพราะอีกคนขาดเราไม่ได้"],
+            answer: 2
+        }
+    ];
+
+    let currentQuestionIndex = 0, score = 0;
+
+    function startQuiz() { hideAll(); document.getElementById('quiz-screen').style.display = 'flex'; currentQuestionIndex = 0; score = 0; showQuestion(); }
+    function showQuestion() {
+        let q = quizData[currentQuestionIndex];
+        document.getElementById('q-progress').innerText = (currentQuestionIndex+1) + " / 8";
+        document.getElementById('quiz-question').innerText = q.q;
+        document.getElementById('quiz-feedback').innerText = "";
+        document.getElementById('next-q-btn').style.display = "none";
+        let optDiv = document.getElementById('quiz-options'); optDiv.innerHTML = "";
+        q.options.forEach((opt, i) => {
+            let btn = document.createElement("button"); btn.innerText = opt; btn.className = "quiz-choice-btn";
+            btn.onclick = () => {
+                Array.from(optDiv.children).forEach(b => b.disabled = true);
+                if(i === q.answer) { score++; btn.style.borderColor = "#28a745"; btn.style.color = "#28a745"; document.getElementById('quiz-feedback').innerText = "ถูกต้องที่สุด ❤"; }
+                else { btn.style.borderColor = "#dc3545"; btn.style.color = "#dc3545"; optDiv.children[q.answer].style.borderColor = "#28a745"; document.getElementById('quiz-feedback').innerText = "เกือบถูกแล้ววว"; }
+                document.getElementById('next-q-btn').style.display = "block";
+            };
+            optDiv.appendChild(btn);
+        });
+    }
+    function nextQuestion() { currentQuestionIndex++; if(currentQuestionIndex < 8) showQuestion(); else { hideAll(); document.getElementById('quiz-result').style.display='flex'; document.getElementById('final-score').innerText = score + " / 8"; } }
+    </script>
+</body>
+<button onclick="secretLove()" 
+style="
+position:fixed;
+bottom:15px;
+right:15px;
+border:none;
+background:#8e3a46;
+color:white;
+padding:10px 15px;
+border-radius:20px;
+font-size:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+">
+miss me?
+</button>
+
+<script>
+function secretLove(){
+    alert("ไม่ว่าจะอีกกี่ปี เค้าก็ยังเลือกเธอเหมือนเดิม 🤍");
+}
+</script>
+
+</html>
