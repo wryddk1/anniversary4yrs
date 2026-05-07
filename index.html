@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Anniversary 4 Years My Love</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-     <style>
+    <style>
         :root {
             --primary-color: #8e3a46;    
             --secondary-color: #b5838d;  
@@ -15,159 +15,159 @@
             --accent-gold: #c0a080;
         }
 
+        /* บังคับให้ทุก Element ใช้ฟอนต์ Prompt */
         * {
             font-family: 'Prompt', sans-serif !important;
             box-sizing: border-box;
         }
 
-        html, body {
-            -webkit-text-size-adjust: 100%;
-        }
-
         body {
             background: var(--bg-gradient);
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            margin: 0; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
             overflow-x: hidden;
             color: var(--text-color);
-            padding: 20px 0;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        @keyframes heartBeat {
-            0%,100%{transform:rotate(-45deg) scale(1);}
-            50%{transform:rotate(-45deg) scale(1.05);}
-        }
-
-        @keyframes shake {
-            0%{transform:translateX(0);}
-            25%{transform:translateX(-5px);}
-            50%{transform:translateX(5px);}
-            75%{transform:translateX(-5px);}
-            100%{transform:translateX(0);}
-        }
+        /* Animations */
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        @keyframes heartBeat { 0%, 100% { transform: rotate(-45deg) scale(1); } 50% { transform: rotate(-45deg) scale(1.05); } }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
 
         .shake-error { animation: shake 0.3s ease-in-out; }
 
+        /* Splash Screen */
         #splash-screen {
-            position: fixed;
-            inset: 0;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-gradient);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            display: flex; justify-content: center; align-items: center; z-index: 1000; transition: 0.8s ease-in-out;
         }
-
         .heart-main {
-            width: 42vmin;
-            height: 42vmin;
-            background: var(--primary-color);
-            transform: rotate(-45deg);
-            position: relative;
-            animation: heartBeat 2s infinite;
-            box-shadow: 0 10px 40px rgba(142,58,70,0.2);
+            width: 42vmin; height: 42vmin; background: var(--primary-color);
+            position: relative; transform: rotate(-45deg); animation: heartBeat 2s infinite ease-in-out;
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 40px rgba(142,58,70,0.2);
         }
-
-        .heart-main::before,
-        .heart-main::after {
-            content: "";
-            width: 42vmin;
-            height: 42vmin;
-            background: var(--primary-color);
-            border-radius: 50%;
-            position: absolute;
+        .heart-main::before, .heart-main::after {
+            content: ""; width: 42vmin; height: 42vmin; background: var(--primary-color); border-radius: 50%; position: absolute;
         }
+        .heart-main::before { top: -21vmin; left: 0; }
+        .heart-main::after { left: 21vmin; top: 0; }
+        
+        .heart-content { 
+            transform: rotate(45deg); 
+            z-index: 10; text-align: center; width: 140%; 
+            position: absolute; 
+        }
+        
+        .heart-content h2 { 
+            color: #ffffff; 
+            font-size: clamp(1.5rem, 5vmin, 2.5rem); 
+            margin: 0 0 10px 0; 
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .heart-content p { color: rgba(255,255,255,0.9); font-size: clamp(0.9rem, 3vmin, 1.1rem); margin-bottom: 20px; font-weight: 300; }
 
-        .heart-main::before { top: -21vmin; }
-        .heart-main::after { left: 21vmin; }
+        .start-btn { 
+            background: white; color: var(--primary-color); border: none; 
+            padding: 12px 35px; border-radius: 50px; 
+            font-weight: 600; cursor: pointer; 
+            font-size: clamp(0.9rem, 2.5vmin, 1.1rem); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+            transition: 0.3s;
+        }
+        .start-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
 
+        /* Container & Screens */
         .container, .content-page {
-            width: 92vw;
-            max-width: 850px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.95);
-            border-radius: 30px;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            padding: 25px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+            width: 90%; max-width: 850px; background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); border-radius: 40px;
+            display: none; flex-direction: column; align-items: center;
+            box-shadow: 0 25px 60px rgba(74,55,53,0.12);
+            padding: 40px; border: 1px solid rgba(255,255,255,0.5);
         }
 
-        #login-screen { display: flex; }
+        @media (min-width: 769px) {
+            .container { flex-direction: row; justify-content: space-around; gap: 50px; }
+            .photo-side, .login-side { width: 45%; }
+        }
 
         .heart-photo-container {
-            width: 260px;
-            height: 240px;
+            width: 280px; height: 250px; margin: 0 auto;
+            position: relative; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
+        }
+        .heart-photo-container img {
+            width: 100%; height: 100%; object-fit: cover; 
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; -webkit-mask-size: contain;
+            mask-repeat: no-repeat; mask-position: center; mask-size: contain;
         }
 
-        #passcode {
-            width: 100%;
-            font-size: 22px;
-            text-align: center;
-            letter-spacing: 10px;
-            padding: 12px;
-            border-radius: 15px;
-            border: 2px solid #eee;
+        #passcode { 
+            padding: 15px; border-radius: 20px; border: 2px solid #f0e6e6; background: #fff; 
+            width: 100%; margin-bottom: 25px; font-size: 24px; text-align: center; letter-spacing: 12px; 
+            color: var(--primary-color); font-weight: 700; outline: none; transition: 0.3s;
         }
-
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 10px;
-            width: 100%;
+        
+        .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
+        .key { 
+            width: 100%; aspect-ratio: 1/1; max-width: 65px; border-radius: 50%; 
+            border: 1px solid #efe5e5; background: white; color: var(--text-color); 
+            cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto; transition: 0.2s;
         }
+        .key:active { background: #fdf8f5; transform: scale(0.9); } 
+        .key.clear-btn { border: none; color: #aaa; font-size: 14px; }
+        .key.unlock { background: var(--primary-color); color: white; border: none; font-size: 16px; box-shadow: 0 5px 15px rgba(142,58,70,0.3); }
 
-        .key {
-            max-width: 55px;
-            aspect-ratio: 1/1;
-            border-radius: 50%;
-            border: 1px solid #eee;
-            background: white;
-            font-size: 18px;
-        }
-
-        #menu-screen {
-            display: none;
-            flex-direction: column;
-            width: 92vw;
-            max-width: 450px;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
+        /* Menu */
+        #menu-screen { display: none; flex-direction: column; align-items: center; width: 90%; max-width: 450px; }
+        .menu-title { font-size: 26px; color: var(--primary-color); margin-bottom: 25px; font-weight: 600; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
         .menu-card {
-            padding: 20px;
-            border-radius: 25px;
-            background: white;
-            border: none;
+            background: white; padding: 25px 10px; border-radius: 30px; 
+            box-shadow: 0 10px 30px rgba(74,55,53,0.08);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            text-align: center; cursor: pointer; aspect-ratio: 1/1; transition: 0.3s; border: none;
+        }
+        .menu-card:hover { transform: translateY(-5px); }
+        
+        .menu-card img { 
+            width: 35%; 
+            margin-bottom: 15px; 
+            filter: brightness(0) opacity(0.7); 
+        }
+        
+        .menu-card span { font-size: 15px; font-weight: 500; color: var(--text-color); }
+        .menu-card.full-width { grid-column: span 2; aspect-ratio: auto; padding: 30px; background: var(--primary-color); color: white; }
+        .menu-card.full-width span { color: white; }
+        
+        .menu-card.full-width img { 
+            filter: brightness(0) invert(1); 
+            width: 12%; 
         }
 
-        .letter {
-            font-size: 14px;
-            line-height: 1.8;
-        }
+        /* Letter & Pages */
+        .letter { text-align: left; background: #fafafa; padding: 30px; border-radius: 30px; border: 1px solid #f3efee; width: 100%; line-height: 1.9; font-size: 15px; }
+        .letter b { color: var(--primary-color); }
+        .letter img { width: 100%; border-radius: 20px; margin: 20px 0; }
 
-        .next-btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 18px;
-            border: none;
-            background: var(--primary-color);
-            color: white;
-        }
+        .timer-grid { display: flex; justify-content: center; gap: 15px; width: 100%; margin: 20px 0; }
+        .timer-number { font-size: 32px; font-weight: 700; color: var(--primary-color); }
+        .timer-label { font-size: 10px; color: #bbb; text-transform: uppercase; }
+
+        .next-btn { background: var(--primary-color); color: white; border: none; padding: 16px; border-radius: 20px; width: 100%; cursor: pointer; font-size: 16px; font-weight: 500; margin-top: 20px; }
+        .back-btn { background: #f5f5f5; color: #aaa; border: none; padding: 12px 20px; border-radius: 20px; cursor: pointer; font-size: 13px; }
+        .nav-group { display: flex; gap: 15px; width: 100%; margin-top: 20px; }
+
+        .quiz-choice-btn { background: white; width: 100%; padding: 18px; border: 1.5px solid #f0f0f0; border-radius: 20px; margin-top: 15px; cursor: pointer; transition: 0.3s; font-size: 15px; }
+        .quiz-choice-btn:hover:not([disabled]) { border-color: var(--secondary-color); }
+
+        .music-player-container { width: 100%; margin-top: 30px; background: rgba(255,255,255,0.7); padding: 20px; border-radius: 30px; text-align: center; border: 1px solid white; }
     </style>
 </head>
 <body>
